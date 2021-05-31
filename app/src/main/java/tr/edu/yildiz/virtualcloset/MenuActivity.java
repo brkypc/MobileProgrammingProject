@@ -40,13 +40,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(MenuActivity.this, DrawersActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.second) {
-            intent = new Intent(MenuActivity.this, DrawersActivity.class);
+            intent = new Intent(MenuActivity.this, EventsActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.third) {
-            intent = new Intent(MenuActivity.this, DrawersActivity.class);
+            intent = new Intent(MenuActivity.this, ChangingRoomActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.fourth) {
-            intent = new Intent(MenuActivity.this, DrawersActivity.class);
+            intent = new Intent(MenuActivity.this, OutfitsActivity.class);
             startActivity(intent);
         }
     }

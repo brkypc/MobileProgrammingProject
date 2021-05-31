@@ -115,14 +115,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.insert(CLOTHES_TABLE, null, contentValues);
     }
 
-    public void addOutfit(int[] clothes) {
+    public void addOutfit(Outfit outfit) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_OVERHEAD, clothes[0]);
-        contentValues.put(COLUMN_FACE, clothes[1]);
-        contentValues.put(COLUMN_UPPER, clothes[2]);
-        contentValues.put(COLUMN_LOWER, clothes[3]);
-        contentValues.put(COLUMN_FOOT, clothes[4]);
+        contentValues.put(COLUMN_OVERHEAD, outfit.getOverhead());
+        contentValues.put(COLUMN_FACE,outfit.getFace());
+        contentValues.put(COLUMN_UPPER, outfit.getUpper());
+        contentValues.put(COLUMN_LOWER, outfit.getLower());
+        contentValues.put(COLUMN_FOOT, outfit.getFoot());
 
         database.insert(OUTFITS_TABLE, null, contentValues);
     }

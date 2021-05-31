@@ -11,4 +11,21 @@
     <string name="no_drawer">Hiç çekmece yok</string>
     <string name="kiyafetler">Kıyafetler</string>
     <string name="no_clothes">Bu çekmecede hiç kıyafet yok</string>
+    <string name="no_type">Her bölüm için kıyafet bulunmalıdır.</string>
+    <string name="no_outfit">Hiç kombin bulunmuyor</string>
+    <string-array name="type">
+        <item>Kıyafet türü seçiniz</item>
+        <item>Şapka</item>
+        <item>Gözlük</item>
+        <item>T-Shirt</item>
+        <item>Pantolon</item>
+        <item>Mont</item>
+        <item>Ayakkabı</item>
+    </string-array>
+    <string-array name="pattern">
+        <item>Desen seçiniz</item>
+        <item>Düz</item>
+        <item>Çizgili</item>
+        <item>Kareli</item>
+    </string-array>
 </resources>

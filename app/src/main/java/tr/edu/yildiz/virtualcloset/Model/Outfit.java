@@ -12,6 +12,14 @@ public class Outfit {
         this.foot = foot;
     }
 
+    public Outfit(int overhead, int face, int upper, int lower, int foot) {
+        this.overhead = overhead;
+        this.face = face;
+        this.upper = upper;
+        this.lower = lower;
+        this.foot = foot;
+    }
+
     public int getId() {
         return id;
     }

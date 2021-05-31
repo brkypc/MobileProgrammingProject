@@ -1,5 +1,6 @@
 package tr.edu.yildiz.virtualcloset.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -47,10 +48,16 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
         holder.drawerName.setText(drawers.get(position).getName());
         holder.drawerCount.setText(count);
         holder.deleteDrawer.setOnClickListener(v -> {
-            Toast.makeText(context, "Çekmece silindi", Toast.LENGTH_SHORT).show();
-            drawers.remove(position);
-            notifyDataSetChanged();
-            databaseHelper.deleteDrawer(drawers.get(position).getId());
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Çekmeceyi silmek istiyor musunuz?");
+            builder.setPositiveButton("Evet", (dialog, which) -> {
+                Toast.makeText(context, "Çekmece silindi", Toast.LENGTH_SHORT).show();
+                databaseHelper.deleteDrawer(drawers.get(position).getId());
+                drawers.remove(position);
+                notifyDataSetChanged();
+            });
+            builder.setNegativeButton("Hayır", null);
+            builder.show();
         });
 
         holder.itemView.setOnClickListener(v -> {

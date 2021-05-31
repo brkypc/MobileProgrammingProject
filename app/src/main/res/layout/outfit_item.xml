@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageButton
+        android:id="@+id/deleteOutfit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white"
+        android:contentDescription="@string/kombinler"
+        android:src="@drawable/delete" />
+
+    <ImageView
+        android:id="@+id/overHead"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/face"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/upper"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/lower"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/foot"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher" />
+
+</LinearLayout>
