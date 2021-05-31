@@ -53,13 +53,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
             databaseHelper.deleteDrawer(drawers.get(position).getId());
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ClothesActivity.class);
-                intent.putExtra("drawerNo", drawers.get(position).getId());
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ClothesActivity.class);
+            intent.putExtra("drawerNo", drawers.get(position).getId());
+            context.startActivity(intent);
         });
     }
 
