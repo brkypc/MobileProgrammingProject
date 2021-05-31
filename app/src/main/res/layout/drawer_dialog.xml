@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/dialogName"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Çekmece Adı"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/dialogAdd"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Ekle"
+            android:layout_marginEnd="5dp"
+            android:background="@color/blue" />
+
+        <Button
+            android:id="@+id/dialogDismiss"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="İptal"
+            android:layout_marginStart="5dp"
+            android:background="@color/blue" />
+    </LinearLayout>
+
+
+</LinearLayout>

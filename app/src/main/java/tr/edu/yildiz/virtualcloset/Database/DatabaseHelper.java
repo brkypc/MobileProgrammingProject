@@ -93,12 +93,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addDrawer(String name) {
+    public long addDrawer(String name) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME, name);
         contentValues.put(COLUMN_COUNT, 0);
-        database.insert(DRAWERS_TABLE, null, contentValues);
+
+        return database.insert(DRAWERS_TABLE, null, contentValues);
     }
 
     public void addClothes(Clothes clothes) {
@@ -220,7 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public ArrayList<Clothes> getDrawerClothes(String no) {
+    public ArrayList<Clothes> getDrawerClothes(int no) {
         ArrayList<Clothes> clothes = new ArrayList<>();
         int id, drawerNo;
         String type, color, pattern, date, price;
