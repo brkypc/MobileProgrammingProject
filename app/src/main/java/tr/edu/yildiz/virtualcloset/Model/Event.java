@@ -13,6 +13,14 @@ public class Event {
         this.location = location;
     }
 
+    public Event(int outfitNo, String name, String type, String date, String location) {
+        this.outfitNo = outfitNo;
+        this.name = name;
+        this.type = type;
+        this.date = date;
+        this.location = location;
+    }
+
     public int getId() {
         return id;
     }

@@ -151,32 +151,4 @@ public class ChangingRoomActivity extends AppCompatActivity {
             }
         }
     }
-
-    /*private void defineRvs() {
-        rvOverHead = findViewById(R.id.rvOverhead);
-        rvFace = findViewById(R.id.rvFace);
-        rvUpper = findViewById(R.id.rvUpper);
-        rvLower = findViewById(R.id.rvLower);
-        rvFoot = findViewById(R.id.rvFoot);
-
-        rvOverHead.setHasFixedSize(true);
-        rvFace.setHasFixedSize(true);
-        rvUpper.setHasFixedSize(true);
-        rvLower.setHasFixedSize(true);
-        rvFoot.setHasFixedSize(true);
-
-        rvOverHead.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvFace.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvUpper.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvLower.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvFoot.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider)));
-        rvOverHead.addItemDecoration(decoration);
-        rvFace.addItemDecoration(decoration);
-        rvUpper.addItemDecoration(decoration);
-        rvLower.addItemDecoration(decoration);
-        rvFoot.addItemDecoration(decoration);
-    }*/
 }

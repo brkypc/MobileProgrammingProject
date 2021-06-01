@@ -3,7 +3,6 @@ package tr.edu.yildiz.virtualcloset;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -40,7 +39,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(MenuActivity.this, DrawersActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.second) {
-            intent = new Intent(MenuActivity.this, EventsActivity.class);
+            intent = new Intent(MenuActivity.this, AddEventActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.third) {
             intent = new Intent(MenuActivity.this, ChangingRoomActivity.class);
