@@ -43,28 +43,31 @@ public class OutfitAdapter extends RecyclerView.Adapter<OutfitAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull OutfitAdapter.ViewHolder holder, int position) {
-        Clothes clothes1 = databaseHelper.getClothes(outfits.get(position).getOverhead());
-        Clothes clothes2 = databaseHelper.getClothes(outfits.get(position).getFace());
-        Clothes clothes3 = databaseHelper.getClothes(outfits.get(position).getUpper());
-        Clothes clothes4 = databaseHelper.getClothes(outfits.get(position).getLower());
-        Clothes clothes5 = databaseHelper.getClothes(outfits.get(position).getFoot());
+        if (outfits.get(position).getOverhead() != -1) {
+            Clothes clothes1 = databaseHelper.getClothes(outfits.get(position).getOverhead());
+            byte[] image1 = clothes1.getPhoto();
+            Bitmap bitmap1 = BitmapFactory.decodeByteArray(image1, 0, image1.length);
+            holder.overHead.setImageBitmap(bitmap1);
+        }
 
-        byte[] image1 = clothes1.getPhoto();
+        Clothes clothes2 = databaseHelper.getClothes(outfits.get(position).getUpper());
+        Clothes clothes3 = databaseHelper.getClothes(outfits.get(position).getLower());
+        Clothes clothes4 = databaseHelper.getClothes(outfits.get(position).getFoot());
+
+
         byte[] image2 = clothes2.getPhoto();
         byte[] image3 = clothes3.getPhoto();
         byte[] image4 = clothes4.getPhoto();
-        byte[] image5 = clothes5.getPhoto();
-        Bitmap bitmap1 = BitmapFactory.decodeByteArray(image1, 0, image1.length);
+
         Bitmap bitmap2 = BitmapFactory.decodeByteArray(image2, 0, image2.length);
         Bitmap bitmap3 = BitmapFactory.decodeByteArray(image3, 0, image3.length);
         Bitmap bitmap4 = BitmapFactory.decodeByteArray(image4, 0, image4.length);
-        Bitmap bitmap5 = BitmapFactory.decodeByteArray(image5, 0, image5.length);
 
-        holder.overHead.setImageBitmap(bitmap1);
-        holder.face.setImageBitmap(bitmap2);
-        holder.upper.setImageBitmap(bitmap3);
-        holder.lower.setImageBitmap(bitmap4);
-        holder.foot.setImageBitmap(bitmap5);
+
+        holder.upper.setImageBitmap(bitmap2);
+        holder.lower.setImageBitmap(bitmap3);
+        holder.foot.setImageBitmap(bitmap4);
+
 
         holder.deleteOutfit.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -86,12 +89,11 @@ public class OutfitAdapter extends RecyclerView.Adapter<OutfitAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView overHead, face, upper, lower, foot, deleteOutfit;
+        ImageView overHead, upper, lower, foot, deleteOutfit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             overHead = itemView.findViewById(R.id.overHead);
-            face = itemView.findViewById(R.id.face);
             upper = itemView.findViewById(R.id.upper);
             lower = itemView.findViewById(R.id.lower);
             foot = itemView.findViewById(R.id.foot);

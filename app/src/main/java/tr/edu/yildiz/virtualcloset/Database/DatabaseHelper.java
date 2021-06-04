@@ -36,14 +36,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String OUTFITS_TABLE = "outfit";
     private static final String COLUMN_OVERHEAD = "overhead";
-    private static final String COLUMN_FACE = "face";
     private static final String COLUMN_UPPER = "upper";
     private static final String COLUMN_LOWER = "lower";
     private static final String COLUMN_FOOT = "foot";
 
     private static final String EVENTS_TABLE = "events";
-    private static final String COLUMN_LOCATION = "location";
     private static final String COLUMN_OUTFIT = "outfitNo";
+    private static final String COLUMN_LOCATION = "location";
+    private static final String COLUMN_LATITUDE = "latitude";
+    private static final String COLUMN_LONGITUDE = "longitude";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -69,7 +70,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createOutfitsTable = "CREATE TABLE " + OUTFITS_TABLE + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_OVERHEAD + " INTEGER, " +
-                COLUMN_FACE + " INTEGER, " +
                 COLUMN_UPPER + " INTEGER, " +
                 COLUMN_LOWER + " INTEGER, " +
                 COLUMN_FOOT + " INTEGER);";
@@ -80,7 +80,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_TYPE + " TEXT, " +
                 COLUMN_DATE + " TEXT, " +
-                COLUMN_LOCATION + " TEXT);";
+                COLUMN_LOCATION + " TEXT, " +
+                COLUMN_LATITUDE + " REAL, " +
+                COLUMN_LONGITUDE + " REAL);";
 
         db.execSQL(createDrawersTable);
         db.execSQL(createClothesTable);
@@ -112,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DATE, clothes.getDate());
         contentValues.put(COLUMN_PRICE, clothes.getPrice());
         contentValues.put(COLUMN_PHOTO, clothes.getPhoto());
+
         database.insert(CLOTHES_TABLE, null, contentValues);
     }
 
@@ -119,7 +122,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_OVERHEAD, outfit.getOverhead());
-        contentValues.put(COLUMN_FACE,outfit.getFace());
         contentValues.put(COLUMN_UPPER, outfit.getUpper());
         contentValues.put(COLUMN_LOWER, outfit.getLower());
         contentValues.put(COLUMN_FOOT, outfit.getFoot());
@@ -135,12 +137,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_TYPE, event.getType());
         contentValues.put(COLUMN_DATE, event.getDate());
         contentValues.put(COLUMN_LOCATION, event.getLocation());
+        contentValues.put(COLUMN_LATITUDE, event.getLatitude());
+        contentValues.put(COLUMN_LONGITUDE, event.getLongitude());
 
         database.insert(EVENTS_TABLE, null, contentValues);
     }
 
+    public void updateDrawer(int Id, int count) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_COUNT, count);
+
+        database.update(DRAWERS_TABLE, contentValues, "id = ?", new String[]{String.valueOf(Id)});
+    }
+
     public void deleteDrawer(int Id) {
         SQLiteDatabase database = this.getWritableDatabase();
+
         database.delete(DRAWERS_TABLE, "id = ?", new String[]{String.valueOf(Id)});
     }
 
@@ -160,16 +173,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteClothes(int Id) {
         SQLiteDatabase database = this.getWritableDatabase();
+
         database.delete(CLOTHES_TABLE, "id = ?", new String[]{String.valueOf(Id)});
     }
 
     public void deleteOutfit(int Id) {
         SQLiteDatabase database = this.getWritableDatabase();
+
         database.delete(OUTFITS_TABLE, "id = ?", new String[]{String.valueOf(Id)});
+    }
+
+    public void updateEvent(Event event, int Id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_OUTFIT, event.getOutfitNo());
+        contentValues.put(COLUMN_NAME, event.getName());
+        contentValues.put(COLUMN_TYPE, event.getType());
+        contentValues.put(COLUMN_DATE, event.getDate());
+        contentValues.put(COLUMN_LOCATION, event.getLocation());
+        contentValues.put(COLUMN_LATITUDE, event.getLatitude());
+        contentValues.put(COLUMN_LONGITUDE, event.getLongitude());
+
+        database.update(EVENTS_TABLE, contentValues, "id = ?", new String[]{String.valueOf(Id)});
     }
 
     public void deleteEvent(int Id) {
         SQLiteDatabase database = this.getWritableDatabase();
+
         database.delete(EVENTS_TABLE, "id = ?", new String[]{String.valueOf(Id)});
     }
 
@@ -283,7 +314,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Outfit> getOutfits() {
         ArrayList<Outfit> outfits = new ArrayList<>();
-        int id, overhead, face, upper, lower, foot;
+        int id, overhead, upper, lower, foot;
 
         SQLiteDatabase database = this.getReadableDatabase();
         String rawQuery = "SELECT * FROM " + OUTFITS_TABLE;
@@ -294,12 +325,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 id = cursor.getInt(0);
                 overhead = cursor.getInt(1);
-                face = cursor.getInt(2);
-                upper = cursor.getInt(3);
-                lower = cursor.getInt(4);
-                foot = cursor.getInt(5);
+                upper = cursor.getInt(2);
+                lower = cursor.getInt(3);
+                foot = cursor.getInt(4);
 
-                outfits.add(new Outfit(id, overhead, face, upper, lower, foot));
+                outfits.add(new Outfit(id, overhead, upper, lower, foot));
             }while (cursor.moveToNext());
 
             return outfits;
@@ -310,6 +340,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Event getEvent(int Id) {
         int id, outfitNo;
         String name, type, date, location;
+        double latitude, longitude;
 
         SQLiteDatabase database = this.getReadableDatabase();
         String rawQuery = "SELECT * FROM " + EVENTS_TABLE + " WHERE id = " + Id;
@@ -323,8 +354,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             type = cursor.getString(3);
             date = cursor.getString(4);
             location = cursor.getString(5);
+            latitude = cursor.getDouble(6);
+            longitude = cursor.getDouble(7);
 
-            return new Event(id, outfitNo, name, type, date, location);
+            return new Event(id, outfitNo, name, type, date, location, latitude, longitude);
         }
         return null;
     }
@@ -333,6 +366,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Event> events = new ArrayList<>();
         int id, outfitNo;
         String name, type, date, location;
+        double latitude, longitude;
 
         SQLiteDatabase database = this.getReadableDatabase();
         String rawQuery = "SELECT * FROM " + EVENTS_TABLE;
@@ -347,8 +381,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 type = cursor.getString(3);
                 date = cursor.getString(4);
                 location = cursor.getString(5);
+                latitude = cursor.getDouble(6);
+                longitude = cursor.getDouble(7);
 
-                events.add(new Event(id, outfitNo, name, type, date, location));
+                events.add(new Event(id, outfitNo, name, type, date, location, latitude, longitude));
             }while (cursor.moveToNext());
 
             return events;

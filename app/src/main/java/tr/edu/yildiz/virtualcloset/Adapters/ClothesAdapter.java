@@ -2,13 +2,13 @@ package tr.edu.yildiz.virtualcloset.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import tr.edu.yildiz.virtualcloset.AddClothesActivity;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
 import tr.edu.yildiz.virtualcloset.Model.Clothes;
 import tr.edu.yildiz.virtualcloset.R;
@@ -62,11 +63,20 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
             builder.setPositiveButton("Evet", (dialog, which) -> {
                 Toast.makeText(context, "Kıyafet silindi", Toast.LENGTH_SHORT).show();
                 databaseHelper.deleteClothes(clothes.get(position).getId());
+                databaseHelper.updateDrawer(clothes.get(position).getDrawerNo(), clothes.size() - 1);
                 clothes.remove(position);
                 notifyDataSetChanged();
             });
             builder.setNegativeButton("Hayır", null);
             builder.show();
+        });
+
+        holder.editClothes.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AddClothesActivity.class);
+            intent.putExtra("drawerNo", clothes.get(position).getDrawerNo());
+            intent.putExtra("clothesId", clothes.get(position).getId());
+            intent.putExtra("update", "true");
+            context.startActivity(intent);
         });
     }
 
@@ -78,7 +88,7 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView type, color, pattern, date, price;
         ImageView photo;
-        ImageButton deleteClothes;
+        ImageButton deleteClothes, editClothes;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +99,7 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
             price = itemView.findViewById(R.id.rvPrice);
             photo = itemView.findViewById(R.id.rvPhoto);
             deleteClothes = itemView.findViewById(R.id.deleteClothes);
+            editClothes = itemView.findViewById(R.id.editClothes);
         }
     }
 }

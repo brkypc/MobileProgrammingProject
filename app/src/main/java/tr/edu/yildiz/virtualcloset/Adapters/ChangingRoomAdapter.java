@@ -18,7 +18,6 @@ import tr.edu.yildiz.virtualcloset.Model.Clothes;
 import tr.edu.yildiz.virtualcloset.R;
 
 public class ChangingRoomAdapter extends RecyclerView.Adapter<ChangingRoomAdapter.ViewHolder> {
-    private final Context context;
     private final LayoutInflater mInflater;
     private final ArrayList<Clothes> clothes;
     public final int type;
@@ -26,7 +25,6 @@ public class ChangingRoomAdapter extends RecyclerView.Adapter<ChangingRoomAdapte
     public ChangingRoomAdapter(Context context, ArrayList<Clothes> clothes, int type) {
         this.mInflater = LayoutInflater.from(context);
         this.clothes = clothes;
-        this.context = context;
         this.type = type;
     }
 
@@ -45,30 +43,24 @@ public class ChangingRoomAdapter extends RecyclerView.Adapter<ChangingRoomAdapte
 
         holder.photo.setImageBitmap(bitmap);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (type) {
-                    case 1:
-                        ChangingRoomActivity.cOverHead = c;
-                        break;
-                    case 2:
-                        ChangingRoomActivity.cFace = c;
-                        break;
-                    case 3:
-                        ChangingRoomActivity.cUpper = c;
-                        break;
-                    case 4:
-                        ChangingRoomActivity.cLower = c;
-                        break;
-                    case 5:
-                        ChangingRoomActivity.cFoot = c;
-                        break;
-                }
-                ChangingRoomActivity.bitmap = bitmap;
-                ChangingRoomActivity.selected = true;
-                ChangingRoomActivity.dialog.dismiss();
+        holder.itemView.setOnClickListener(v -> {
+            switch (type) {
+                case 1:
+                    ChangingRoomActivity.cOverHead = c;
+                    break;
+                case 2:
+                    ChangingRoomActivity.cUpper = c;
+                    break;
+                case 3:
+                    ChangingRoomActivity.cLower = c;
+                    break;
+                case 4:
+                    ChangingRoomActivity.cFoot = c;
+                    break;
             }
+            ChangingRoomActivity.bitmap = bitmap;
+            ChangingRoomActivity.selected = true;
+            ChangingRoomActivity.dialog.dismiss();
         });
     }
 

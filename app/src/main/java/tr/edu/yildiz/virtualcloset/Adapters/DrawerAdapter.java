@@ -17,8 +17,6 @@ import java.util.ArrayList;
 
 import tr.edu.yildiz.virtualcloset.ClothesActivity;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
-import tr.edu.yildiz.virtualcloset.MenuActivity;
-import tr.edu.yildiz.virtualcloset.Model.Clothes;
 import tr.edu.yildiz.virtualcloset.Model.Drawer;
 import tr.edu.yildiz.virtualcloset.R;
 
@@ -43,8 +41,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  DrawerAdapter.ViewHolder holder, int position) {
-        String count = "Kıyafet Sayısı\n" + drawers.get(position).getCount();
+    public void onBindViewHolder(@NonNull DrawerAdapter.ViewHolder holder, int position) {
+        String count = "Kıyafet Sayısı: " + drawers.get(position).getCount();
         holder.drawerName.setText(drawers.get(position).getName());
         holder.drawerCount.setText(count);
         holder.deleteDrawer.setOnClickListener(v -> {

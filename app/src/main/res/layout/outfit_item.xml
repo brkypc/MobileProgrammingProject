@@ -2,40 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#b7d8f9"
     android:orientation="vertical"
     android:padding="10dp">
 
     <ImageButton
         android:id="@+id/deleteOutfit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
-        android:background="@color/white"
-        android:contentDescription="@string/kombinler"
+        android:layout_marginBottom="10dp"
+        android:background="#b7d8f9"
+        android:contentDescription="@string/outfits"
+        android:scaleType="fitXY"
         android:src="@drawable/delete"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/overHead"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher" />
+        android:contentDescription="@string/outfits"
+        android:scaleType="fitXY" />
 
     <ImageView
         android:id="@+id/face"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher" />
+        android:contentDescription="@string/outfits"
+        android:src="@drawable/face" />
 
     <ImageView
         android:id="@+id/upper"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
+        android:contentDescription="@string/outfits"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
@@ -43,6 +47,7 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
+        android:contentDescription="@string/outfits"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
@@ -50,6 +55,7 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
+        android:contentDescription="@string/outfits"
         android:src="@mipmap/ic_launcher" />
 
 </LinearLayout>

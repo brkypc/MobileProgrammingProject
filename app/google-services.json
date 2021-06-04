@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367196151342",
+    "project_id": "mpproject-315618",
+    "storage_bucket": "mpproject-315618.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367196151342:android:4355807a97c70d34f409bf",
+        "android_client_info": {
+          "package_name": "tr.edu.yildiz.virtualcloset"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367196151342-laqksa02mju2nksh1uufb3b9fni4r5s6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDixZEbr-AIg8zImUGoHU_3BZrra8E4pD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367196151342-laqksa02mju2nksh1uufb3b9fni4r5s6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

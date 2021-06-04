@@ -3,23 +3,43 @@
     <string name="my_name">Berkay Yapıcı</string>
     <string name="school_number">17011003</string>
     <string name="mobile_programming_course_app">Mobile Programming Course App</string>
-    <string name="cekmeceler">Çekmeceler</string>
-    <string name="kabin_odasi">Kabin Odası</string>
-    <string name="etkinlikler">Etkinlikler</string>
+    <string name="drawers">Çekmeceler</string>
+    <string name="changing_room">Kabin Odası</string>
+    <string name="events">Etkinlikler</string>
     <string name="app_text">Sanal Dolabım</string>
-    <string name="kombinler">Kombinler</string>
+    <string name="outfits">Kombinler</string>
     <string name="no_drawer">Hiç çekmece yok</string>
-    <string name="kiyafetler">Kıyafetler</string>
+    <string name="clothes">Kıyafetler</string>
     <string name="no_clothes">Bu çekmecede hiç kıyafet yok</string>
     <string name="no_type">Her bölüm için kıyafet bulunmalıdır.</string>
     <string name="no_outfit">Hiç kombin bulunmuyor</string>
+    <string name="no_event">Hiç etkinlik yok</string>
+    <string name="drawer_name">Çekmece Adı</string>
+    <string name="cancel">İptal</string>
+    <string name="color">Renk</string>
+    <string name="select_color">Renk seçiniz</string>
+    <string name="select_date">Alınma tarihini seçiniz</string>
+    <string name="enter_price">Fiyatını giriniz</string>
+    <string name="create_outfit">Kombin Oluştur</string>
+    <string name="confirm_location">Bu konumu seçmek istiyor musunuz?</string>
+    <string name="pick_new">Yeni Konum Seç</string>
+    <string name="approve">Onayla</string>
+    <string name="event_name">Etkinlik İsmini Giriniz</string>
+    <string name="clothes_color">Kıyafet Rengi</string>
+    <string name="update">Güncelle</string>
+    <string name="event_type">Etkinlik Türünü Giriniz</string>
+    <string name="event_date">Etkinlik Tarihini Giriniz</string>
+    <string name="event_location">Etkinlik Lokasyonunu Giriniz</string>
+    <string name="event_outfit">Etkinlik Kombinini Seçiniz</string>
+    <string name="add">Ekle</string>
     <string-array name="type">
         <item>Kıyafet türü seçiniz</item>
         <item>Şapka</item>
-        <item>Gözlük</item>
         <item>T-Shirt</item>
-        <item>Pantolon</item>
+        <item>Gömlek</item>
         <item>Mont</item>
+        <item>Pantolon</item>
+        <item>Eşofman</item>
         <item>Ayakkabı</item>
     </string-array>
     <string-array name="pattern">

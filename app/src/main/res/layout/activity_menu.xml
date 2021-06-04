@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ecfffb"
+    android:background="#88bef5"
     tools:context=".MenuActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +46,7 @@
                     android:id="@+id/first"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ecfffb">
+                    android:background="#88bef5">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                         android:layout_below="@id/menuDrawers"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/aclonica"
-                        android:text="@string/cekmeceler"
+                        android:text="@string/drawers"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -64,7 +64,7 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:contentDescription="@string/cekmeceler"
+                        android:contentDescription="@string/drawers"
                         android:src="@drawable/drawer" />
 
                 </RelativeLayout>
@@ -80,7 +80,7 @@
                     android:id="@+id/second"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ecfffb">
+                    android:background="#88bef5">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                         android:layout_below="@id/menuEvents"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/aclonica"
-                        android:text="@string/etkinlikler"
+                        android:text="@string/events"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -98,7 +98,7 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:contentDescription="@string/etkinlikler"
+                        android:contentDescription="@string/events"
                         android:src="@drawable/events" />
 
                 </RelativeLayout>
@@ -128,7 +128,7 @@
                     android:id="@+id/third"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ecfffb">
+                    android:background="#88bef5">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                         android:layout_below="@id/menuChangingRoom"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/aclonica"
-                        android:text="@string/kabin_odasi"
+                        android:text="@string/changing_room"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -146,7 +146,7 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:contentDescription="@string/kabin_odasi"
+                        android:contentDescription="@string/changing_room"
                         android:src="@drawable/changing_room" />
 
                 </RelativeLayout>
@@ -163,7 +163,7 @@
                     android:id="@+id/fourth"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ecfffb">
+                    android:background="#88bef5">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                         android:layout_below="@id/menuOutfits"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/aclonica"
-                        android:text="@string/kombinler"
+                        android:text="@string/outfits"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -181,7 +181,7 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:contentDescription="@string/kombinler"
+                        android:contentDescription="@string/outfits"
                         android:src="@drawable/outfit" />
 
                 </RelativeLayout>

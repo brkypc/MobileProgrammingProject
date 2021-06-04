@@ -41,7 +41,7 @@ public class OutfitsActivity extends AppCompatActivity {
 
     private void defineRv() {
         RecyclerView rvOutfits = findViewById(R.id.rvOutfits);
-        rvOutfits.setHasFixedSize(true);
+        rvOutfits.setItemViewCacheSize(outfits.size());
         rvOutfits.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);

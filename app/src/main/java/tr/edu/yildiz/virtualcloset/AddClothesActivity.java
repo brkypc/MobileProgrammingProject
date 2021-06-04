@@ -3,14 +3,16 @@ package tr.edu.yildiz.virtualcloset;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,8 +28,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.io.ByteArrayOutputStream;
@@ -43,6 +43,7 @@ public class AddClothesActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 124;
 
     DatabaseHelper databaseHelper;
+    ArrayAdapter<CharSequence> typeAdapter, patternAdapter;
 
     ImageView photo;
     Spinner type, pattern;
@@ -50,9 +51,12 @@ public class AddClothesActivity extends AppCompatActivity {
     EditText price;
     Button addClothes;
 
+    Animation scaleUp, scaleDown;
+
     Uri imgUri = null;
     String hexColor = null, finalColor = null;
-    int drawerNo;
+    int drawerNo, count, clothesId;
+    byte[] image;
 
     Calendar calendar, mCalendar;
     SimpleDateFormat sdf;
@@ -63,46 +67,96 @@ public class AddClothesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clothes);
 
+        defineVariables();
+
         Intent intent = getIntent();
         drawerNo = intent.getIntExtra("drawerNo", -1);
+        if(intent.hasExtra("update")) {
+            clothesId = intent.getIntExtra("clothesId", -1);
+            setFields();
+            defineUpdateListener();
+        }
+        else {
+            count = intent.getIntExtra("count", 0);
+            defineAddListener();
+        }
 
-        defineVariables();
         defineListeners();
     }
 
+    private void setFields() {
+        Clothes clothes = databaseHelper.getClothes(clothesId);
+
+        image = clothes.getPhoto();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        photo.setImageBitmap(bitmap);
+
+        finalColor = clothes.getColor();
+        color.setText(R.string.clothes_color);
+        color.setBackgroundColor(Color.parseColor(finalColor));
+
+        date.setText(clothes.getDate());
+        price.setText(clothes.getPrice());
+        type.setSelection(typeAdapter.getPosition(clothes.getType()));
+        pattern.setSelection(patternAdapter.getPosition(clothes.getPattern()));
+    }
+
+    private void defineAddListener() {
+        addClothes.setOnClickListener(v -> {
+            addClothes.startAnimation(scaleUp);
+            addClothes.startAnimation(scaleDown);
+            if(validateFields()) {
+                byte[] image = getByteArray();
+                if(image != null) {
+                    String sType, sPattern, sDate, sPrice;
+                    sType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
+                    sPattern = pattern.getItemAtPosition(pattern.getSelectedItemPosition()).toString();
+                    sDate = date.getText().toString();
+                    sPrice = price.getText().toString();
+                    databaseHelper.addClothes(new Clothes(drawerNo, sType, finalColor, sPattern, sDate, sPrice, image));
+                    databaseHelper.updateDrawer(drawerNo, count+1);
+                    Toast.makeText(AddClothesActivity.this, "Kıyafet eklendi", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(AddClothesActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void defineUpdateListener() {
+        addClothes.setText(R.string.update);
+        addClothes.setOnClickListener(v -> {
+            addClothes.startAnimation(scaleUp);
+            addClothes.startAnimation(scaleDown);
+            if(validateUpdateFields()) {
+                if(imgUri != null) {
+                    image = getByteArray();
+                }
+
+                if(image != null) {
+                    String sType, sPattern, sDate, sPrice;
+                    sType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
+                    sPattern = pattern.getItemAtPosition(pattern.getSelectedItemPosition()).toString();
+                    sDate = date.getText().toString();
+                    sPrice = price.getText().toString();
+                    databaseHelper.updateClothes(new Clothes(drawerNo, sType, finalColor, sPattern, sDate, sPrice, image), clothesId);
+                    Toast.makeText(AddClothesActivity.this, "Kıyafet güncellendi", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(AddClothesActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void defineListeners() {
-        photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(AddClothesActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(AddClothesActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
-                }
-                else { pickImageFromGallery(); }
+        photo.setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(AddClothesActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(AddClothesActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
             }
+            else { pickImageFromGallery(); }
         });
-
-        addClothes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(validateFields()) {
-                    byte[] image = getByteArray();;
-                    if(image != null) {
-                        String sType, sPattern, sDate, sPrice;
-                        sType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
-                        sPattern = pattern.getItemAtPosition(pattern.getSelectedItemPosition()).toString();
-                        sDate = date.getText().toString();
-                        sPrice = price.getText().toString();
-
-                        databaseHelper.addClothes(new Clothes(drawerNo, sType, finalColor, sPattern, sDate, sPrice, image));
-                        Toast.makeText(AddClothesActivity.this, "Kıyafet eklendi", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    Toast.makeText(AddClothesActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         color.setOnClickListener(v -> createColorPicker());
         date.setOnClickListener(v -> createDatePicker());
     }
@@ -116,7 +170,7 @@ public class AddClothesActivity extends AppCompatActivity {
 
             byte[] buffer = new byte[bufferSize];
 
-            int len = 0;
+            int len;
             while ((len = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, len);
             }
@@ -162,6 +216,11 @@ public class AddClothesActivity extends AppCompatActivity {
         else return !price.getText().toString().isEmpty();
     }
 
+    private boolean validateUpdateFields() {
+        if(type.getSelectedItemPosition()==0 || pattern.getSelectedItemPosition()==0) return false;
+        else return !price.getText().toString().isEmpty();
+    }
+
     private void createDatePicker() {
         DatePickerDialog dpd = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             mCalendar.set(year, month, dayOfMonth);
@@ -176,6 +235,7 @@ public class AddClothesActivity extends AppCompatActivity {
         dpd.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void createColorPicker() {
         ColorPickerDialogBuilder
                 .with(this)
@@ -183,26 +243,17 @@ public class AddClothesActivity extends AppCompatActivity {
                 .initialColor(Color.WHITE)
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
                 .density(12)
-                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int selectedColor) {
-                        hexColor =  "#" + Integer.toHexString(selectedColor).substring(2);
-                    }
-                })
-                .setPositiveButton("Seç", new ColorPickerClickListener() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                       if(hexColor!=null) {
-                           finalColor = hexColor;
-                           color.setText("Seçilen Renk");
-                           color.setBackgroundColor(Color.parseColor(finalColor));
-                           Toast.makeText(AddClothesActivity.this, "Renk seçildi", Toast.LENGTH_SHORT).show();
-                       }
-                       else {
-                           Toast.makeText(AddClothesActivity.this, "Renk seçmediniz", Toast.LENGTH_SHORT).show();
-                       }
-                    }
+                .setOnColorSelectedListener(selectedColor -> hexColor =  "#" + Integer.toHexString(selectedColor).substring(2))
+                .setPositiveButton("Seç", (dialog, selectedColor, allColors) -> {
+                   if(hexColor!=null) {
+                       finalColor = hexColor;
+                       color.setText("Kıyafet Rengi");
+                       color.setBackgroundColor(Color.parseColor(finalColor));
+                       Toast.makeText(AddClothesActivity.this, "Renk seçildi", Toast.LENGTH_SHORT).show();
+                   }
+                   else {
+                       Toast.makeText(AddClothesActivity.this, "Renk seçmediniz", Toast.LENGTH_SHORT).show();
+                   }
                 })
                 .setNegativeButton("İptal", null)
                 .build()
@@ -226,13 +277,17 @@ public class AddClothesActivity extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        sdf = new SimpleDateFormat("dd/MM/yyyy");;
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this, R.array.type, android.R.layout.simple_list_item_1);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
+        scaleDown.setStartOffset(100);
+
+        typeAdapter = ArrayAdapter.createFromResource(this, R.array.type, android.R.layout.simple_list_item_1);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(typeAdapter);
 
-        ArrayAdapter<CharSequence> patternAdapter = ArrayAdapter.createFromResource(this, R.array.pattern, android.R.layout.simple_list_item_1);
+        patternAdapter = ArrayAdapter.createFromResource(this, R.array.pattern, android.R.layout.simple_list_item_1);
         patternAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pattern.setAdapter(patternAdapter);
     }

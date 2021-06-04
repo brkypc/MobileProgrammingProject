@@ -2,13 +2,18 @@ package tr.edu.yildiz.virtualcloset;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import tr.edu.yildiz.virtualcloset.BroadcastReceiver.PowerConnectionReceiver;
+
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     RelativeLayout drawers, events, changingRoom, outfits;
+    BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +21,23 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_menu);
         defineVariables();
         defineListeners();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        receiver = new PowerConnectionReceiver();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+        intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        registerReceiver(receiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     private void defineVariables() {
@@ -39,7 +61,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(MenuActivity.this, DrawersActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.second) {
-            intent = new Intent(MenuActivity.this, AddEventActivity.class);
+            intent = new Intent(MenuActivity.this, EventsActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.third) {
             intent = new Intent(MenuActivity.this, ChangingRoomActivity.class);

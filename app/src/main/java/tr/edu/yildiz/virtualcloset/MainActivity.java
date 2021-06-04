@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToMenu() {
-        int SPLASH_SCREEN_TIME_OUT = 1000;
+        int SPLASH_SCREEN_TIME_OUT = 1200;
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(intent);

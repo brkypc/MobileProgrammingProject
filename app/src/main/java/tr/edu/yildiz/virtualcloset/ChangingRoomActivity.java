@@ -1,24 +1,23 @@
 package tr.edu.yildiz.virtualcloset;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 import tr.edu.yildiz.virtualcloset.Adapters.ChangingRoomAdapter;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
@@ -29,13 +28,15 @@ public class ChangingRoomActivity extends AppCompatActivity {
     public static Dialog dialog;
     public static Bitmap bitmap;
     public static boolean selected = false;
-    public static Clothes cOverHead, cFace, cUpper, cLower, cFoot;
+    public static Clothes cOverHead, cUpper, cLower, cFoot;
 
     Button addOutfit;
     ImageView imgOverHead, imgFace, imgUpper, imgLower, imgFoot;
 
     DatabaseHelper databaseHelper;
-    ArrayList<Clothes> clothes, overhead, face, upper, lower, foot;
+    ArrayList<Clothes> clothes, overhead, upper, lower, foot;
+
+    Animation scaleUp, scaleDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,38 +48,55 @@ public class ChangingRoomActivity extends AppCompatActivity {
         clothes = databaseHelper.getAllClothes();
         if (clothes != null) {
             separateClothes();
-            if (overhead.size() == 0 || face.size() == 0 || upper.size() == 0 || lower.size() == 0 || foot.size() == 0) {
-                TextView noType = findViewById(R.id.noType);
-                noType.setVisibility(View.VISIBLE);
-            }
-            else {
+
+            if (overhead.size() == 0 || upper.size() == 0 || lower.size() == 0 || foot.size() == 0) {
+                defineNoOutfit();
+            } else {
                 defineListeners();
             }
-        }
-        else {
-            TextView noType = findViewById(R.id.noType);
-            noType.setVisibility(View.VISIBLE);
+        } else {
+            defineNoOutfit();
         }
     }
 
+    private void defineNoOutfit() {
+        TextView typeCounts = findViewById(R.id.typeCounts);
+
+        String counts = "Başüstü: " + overhead.size() + " adet\n" +
+                "Üst Beden: " + upper.size() + " adet\n" +
+                "Alt Beden: " + lower.size() + " adet\n" +
+                "Ayak: " + foot.size() + " adet";
+        typeCounts.setText(counts);
+        typeCounts.setVisibility(View.VISIBLE);
+
+        TextView noType = findViewById(R.id.noType);
+        noType.setVisibility(View.VISIBLE);
+        addOutfit.setVisibility(View.GONE);
+        imgOverHead.setVisibility(View.GONE);
+        imgFace.setVisibility(View.GONE);
+        imgUpper.setVisibility(View.GONE);
+        imgLower.setVisibility(View.GONE);
+        imgFoot.setVisibility(View.GONE);
+    }
+
     private void defineListeners() {
-        addOutfit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(cOverHead == null || cFace == null || cUpper == null || cLower == null || cFoot == null) {
-                    Toast.makeText(ChangingRoomActivity.this, "Bütün bölümler seçili olmalıdır", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    databaseHelper.addOutfit(new Outfit(cOverHead.getId(), cFace.getId(), cUpper.getId(), cLower.getId(), cFoot.getId()));
-                    Toast.makeText(ChangingRoomActivity.this, "Kombin eklendi", Toast.LENGTH_SHORT).show();
-                }
+        addOutfit.setOnClickListener(v -> {
+            addOutfit.startAnimation(scaleUp);
+            addOutfit.startAnimation(scaleDown);
+
+            if (cUpper == null || cFoot == null || cLower == null) {
+                Toast.makeText(ChangingRoomActivity.this, "Lütfen seçim yapınız", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                databaseHelper.addOutfit(new Outfit(cOverHead == null ? -1 : cOverHead.getId(), cUpper.getId(), cLower.getId(), cFoot.getId()));
+                Toast.makeText(ChangingRoomActivity.this, "Kombin eklendi", Toast.LENGTH_SHORT).show();
             }
         });
+
         imgOverHead.setOnClickListener(v -> createDialog(overhead, 1));
-        imgFace.setOnClickListener(v -> createDialog(face, 2));
-        imgUpper.setOnClickListener(v -> createDialog(upper, 3));
-        imgLower.setOnClickListener(v -> createDialog(lower, 4));
-        imgFoot.setOnClickListener(v -> createDialog(foot, 5));
+        imgUpper.setOnClickListener(v -> createDialog(upper, 2));
+        imgLower.setOnClickListener(v -> createDialog(lower, 3));
+        imgFoot.setOnClickListener(v -> createDialog(foot, 4));
     }
 
     private void defineVariables() {
@@ -90,20 +108,25 @@ public class ChangingRoomActivity extends AppCompatActivity {
         imgFoot = findViewById(R.id.imgFoot);
 
         overhead = new ArrayList<>();
-        face = new ArrayList<>();
         upper = new ArrayList<>();
         lower = new ArrayList<>();
         foot = new ArrayList<>();
+
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.scale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
+        scaleDown.setStartOffset(100);
     }
 
     private void createDialog(ArrayList<Clothes> clothes, int type) {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.rv_dialog);
+
         ChangingRoomAdapter roomAdapter = new ChangingRoomAdapter(this, clothes, type);
         RecyclerView mRv = dialog.findViewById(R.id.dialog_rv);
         mRv.setHasFixedSize(true); // DENEMEDİM
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.setAdapter(roomAdapter);
+
         dialog.setOnDismissListener(dialog -> {
             if (selected) {
                 selected = false;
@@ -112,15 +135,12 @@ public class ChangingRoomActivity extends AppCompatActivity {
                         imgOverHead.setImageBitmap(bitmap);
                         break;
                     case 2:
-                        imgFace.setImageBitmap(bitmap);
-                        break;
-                    case 3:
                         imgUpper.setImageBitmap(bitmap);
                         break;
-                    case 4:
+                    case 3:
                         imgLower.setImageBitmap(bitmap);
                         break;
-                    case 5:
+                    case 4:
                         imgFoot.setImageBitmap(bitmap);
                         break;
                 }
@@ -135,10 +155,8 @@ public class ChangingRoomActivity extends AppCompatActivity {
                 case "Şapka":
                     overhead.add(aClothes);
                     break;
-                case "Gözlük":
-                    face.add(aClothes);
-                    break;
                 case "T-Shirt":
+                case "Gömlek":
                 case "Mont":
                     upper.add(aClothes);
                     break;

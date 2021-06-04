@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#88bef5"
     tools:context=".ClothesActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/muli_black"
-            android:text="@string/kiyafetler"
+            android:text="@string/clothes"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -31,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:background="@color/white"
-            android:contentDescription="@string/kiyafetler"
+            android:background="#88bef5"
+            android:contentDescription="@string/clothes"
             android:src="@drawable/add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

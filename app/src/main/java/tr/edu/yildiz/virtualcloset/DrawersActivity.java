@@ -56,7 +56,6 @@ public class DrawersActivity extends AppCompatActivity {
     private void defineRv() {
         rvDrawers = findViewById(R.id.rvDrawers);
         rvDrawers.setHasFixedSize(true);
-        //recyclerView.setItemViewCacheSize(drawers.size());
 
         rvDrawers.setLayoutManager(new LinearLayoutManager(this));
 
@@ -64,8 +63,8 @@ public class DrawersActivity extends AppCompatActivity {
         decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider)));
         rvDrawers.addItemDecoration(decoration);
 
-        Animation recycler_animation = AnimationUtils.loadAnimation(this, R.anim.recycler_animation);
-        rvDrawers.startAnimation(recycler_animation);
+        /*Animation recycler_animation = AnimationUtils.loadAnimation(this, R.anim.recycler_animation);
+        rvDrawers.startAnimation(recycler_animation);*/
     }
 
     private void defineAddDrawer() {
@@ -98,6 +97,7 @@ public class DrawersActivity extends AppCompatActivity {
                 long result = databaseHelper.addDrawer(dialogName.getText().toString());
                 if(result != -1) {
                     dialog.dismiss();
+                    noDrawer.setVisibility(View.GONE);
                     Toast.makeText(this, "Çekmece eklendi", Toast.LENGTH_SHORT).show();
                     drawers = databaseHelper.getDrawers();
                     drawerAdapter = new DrawerAdapter(this, drawers);

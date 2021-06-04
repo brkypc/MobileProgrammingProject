@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#88bef5"
     tools:context=".AddEventActivity">
 
     <EditText
@@ -12,13 +13,14 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_bg"
-        android:hint="Etkinlik İsmini Giriniz"
+        android:hint="@string/event_name"
         android:padding="20dp"
         android:inputType="text"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/eventType"
@@ -27,13 +29,14 @@
         android:layout_marginTop="20dp"
         android:inputType="text"
         android:background="@drawable/button_bg"
-        android:hint="Etkinlik Türünü Giriniz"
+        android:hint="@string/event_type"
         android:gravity="start"
         android:padding="20dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventName" />
+        app:layout_constraintTop_toBottomOf="@+id/eventName"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/eventDate"
@@ -41,7 +44,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_bg"
-        android:hint="Etkinlik Tarihini Giriniz"
+        android:hint="@string/event_date"
         android:gravity="start"
         android:padding="20dp"
         android:textColor="@color/black"
@@ -52,10 +55,10 @@
     <TextView
         android:id="@+id/eventLocation"
         android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_bg"
-        android:hint="Etkinlik Lokasyonunu Giriniz"
+        android:hint="@string/event_location"
         android:gravity="start"
         android:padding="20dp"
         android:textColor="@color/black"
@@ -69,7 +72,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_bg"
-        android:hint="Etkinlik Kombinini Seçiniz"
+        android:hint="@string/event_outfit"
         android:gravity="start"
         android:padding="20dp"
         android:textColor="@color/black"
@@ -82,7 +85,8 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:text="Ekle"
+        android:text="@string/add"
+        android:textColor="@color/white"
         android:background="@drawable/button_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

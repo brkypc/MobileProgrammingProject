@@ -6,20 +6,20 @@
     android:layout_height="match_parent"
     android:background="#88bef5"
     android:orientation="vertical"
-    tools:context=".DrawersActivity">
+    tools:context=".EventsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/drawersText"
+            android:id="@+id/eventsText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/muli_black"
-            android:text="@string/drawers"
+            android:text="@string/events"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -28,11 +28,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/addDrawer"
+            android:id="@+id/addEvents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="5dp"
             android:background="#88bef5"
             android:contentDescription="@string/drawers"
             android:src="@drawable/add"
@@ -40,24 +40,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/noDrawer"
+            android:id="@+id/noEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/muli"
-            android:text="@string/no_drawer"
+            android:text="@string/no_event"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/drawersText" />
+            app:layout_constraintTop_toBottomOf="@+id/eventsText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDrawers"
+        android:id="@+id/rvEvents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp" />

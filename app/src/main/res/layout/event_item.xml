@@ -10,22 +10,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#b7d8f9">
 
         <ImageButton
-            android:id="@+id/deleteClothes"
+            android:id="@+id/deleteEvent"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="3dp"
             android:background="#b7d8f9"
-            android:contentDescription="@string/clothes"
+            android:layout_marginTop="2dp"
             android:scaleType="fitXY"
+            android:contentDescription="@string/clothes"
             android:src="@drawable/delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/editClothes"
+            android:id="@+id/editEvent"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="5dp"
@@ -34,81 +35,63 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deleteClothes"
+            app:layout_constraintTop_toBottomOf="@+id/deleteEvent"
             app:tint="@color/black" />
 
-        <ImageView
-            android:id="@+id/rvPhoto"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/app_text"
-            android:padding="5dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
+        <TextView
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/rvType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/muli"
-            android:gravity="center"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rvPhoto"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/rvColor"
+            android:id="@+id/itemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/muli"
             android:gravity="center"
-            android:text="@string/color"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rvPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/rvType" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemName"/>
 
         <TextView
-            android:id="@+id/rvPattern"
+            android:id="@+id/itemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/muli"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rvPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/rvColor" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemType"/>
 
         <TextView
-            android:id="@+id/rvDate"
+            android:id="@+id/itemOutfit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/muli"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rvPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/rvPattern" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDate"/>
 
         <TextView
-            android:id="@+id/rvPrice"
+            android:id="@+id/itemLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/muli"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/rvPhoto"
-            app:layout_constraintTop_toBottomOf="@+id/rvDate" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemOutfit"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

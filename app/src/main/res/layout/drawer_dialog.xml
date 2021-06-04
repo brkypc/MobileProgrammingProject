@@ -3,39 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <EditText
         android:id="@+id/dialogName"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="Çekmece Adı"
-        android:inputType="text" />
+        android:hint="@string/drawer_name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/dialogAdd"
+            style="@style/TextAppearance.AppCompat.Button"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Ekle"
             android:layout_marginEnd="5dp"
-            android:background="@color/blue" />
+            android:text="@string/add"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/dialogDismiss"
+            style="@style/TextAppearance.AppCompat.Button"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="İptal"
             android:layout_marginStart="5dp"
-            android:background="@color/blue" />
+            android:text="@string/cancel"
+            android:textColor="@color/white" />
     </LinearLayout>
-
 
 </LinearLayout>

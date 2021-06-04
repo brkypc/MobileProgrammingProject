@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#88bef5"
     tools:context=".ChangingRoomActivity">
 
     <TextView
         android:id="@+id/noType"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/muli"
         android:text="@string/no_type"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/typeCounts"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/muli"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noType" />
 
     <ImageView
         android:id="@+id/imgOverHead"
@@ -25,47 +41,69 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:scaleType="fitXY"
+        android:contentDescription="@string/outfits"
         android:padding="5dp"
-        android:src="@mipmap/ic_launcher" />
+        android:scaleType="fitXY"
+        android:src="@drawable/default_clothes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgFace"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher" />
+        android:contentDescription="@string/outfits"
+        android:src="@drawable/face"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgOverHead" />
 
     <ImageView
         android:id="@+id/imgUpper"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher" />
+        android:contentDescription="@string/outfits"
+        android:src="@drawable/default_clothes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgFace" />
 
     <ImageView
         android:id="@+id/imgLower"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher" />
+        android:contentDescription="@string/outfits"
+        android:src="@drawable/default_clothes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgUpper" />
 
     <ImageView
         android:id="@+id/imgFoot"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher" />
+        android:contentDescription="@string/outfits"
+        android:src="@drawable/default_clothes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLower" />
 
     <Button
         android:id="@+id/addOutfit"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="Kombin Oluştur"
-        android:layout_gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_bg"
+        android:text="@string/create_outfit"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgFoot"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
