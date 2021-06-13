@@ -60,7 +60,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 lng, 10);
         mMap.animateCamera(starting);
 
-        mMap.setOnMapClickListener(latLng -> {
+        mMap.setOnMapLongClickListener(latLng -> {
             mLatLng = latLng;
             mMap.clear();
 
