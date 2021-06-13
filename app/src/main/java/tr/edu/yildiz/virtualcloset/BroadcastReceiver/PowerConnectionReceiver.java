@@ -3,7 +3,6 @@ package tr.edu.yildiz.virtualcloset.BroadcastReceiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.storage.FirebaseStorage;
@@ -61,11 +60,8 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
         boolean inDatabase = true;
 
         for (Clothes aClothes : clothes) {
-            if (names.contains(aClothes.getId() + ".jpg")) {
-                Log.d("mytag", "image " + aClothes.getId() + " exists");
-            } else {
+            if (!names.contains(aClothes.getId() + ".jpg")) {
                 inDatabase = false;
-                Log.d("mytag", "image " + aClothes.getId() + " not exists");
 
                 byte[] image = aClothes.getPhoto();
 

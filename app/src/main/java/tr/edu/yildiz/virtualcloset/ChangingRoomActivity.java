@@ -82,10 +82,9 @@ public class ChangingRoomActivity extends AppCompatActivity {
             addOutfit.startAnimation(scaleUp);
             addOutfit.startAnimation(scaleDown);
 
-            if (cUpper == null || cFoot == null || cLower == null) {
+            if (cUpper == null || cLower == null || cFoot == null) {
                 Toast.makeText(ChangingRoomActivity.this, "Lütfen seçim yapınız", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 databaseHelper.addOutfit(new Outfit(cOverHead == null ? -1 : cOverHead.getId(), cUpper.getId(), cLower.getId(), cFoot.getId()));
                 Toast.makeText(ChangingRoomActivity.this, "Kombin eklendi", Toast.LENGTH_SHORT).show();
             }
@@ -121,7 +120,7 @@ public class ChangingRoomActivity extends AppCompatActivity {
 
         ChangingRoomAdapter roomAdapter = new ChangingRoomAdapter(this, clothes, type);
         RecyclerView mRv = dialog.findViewById(R.id.dialog_rv);
-        mRv.setHasFixedSize(true); // DENEMEDİM
+        mRv.setHasFixedSize(true);
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.setAdapter(roomAdapter);
 

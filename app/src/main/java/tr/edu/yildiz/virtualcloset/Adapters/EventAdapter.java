@@ -19,7 +19,9 @@ import java.util.ArrayList;
 
 import tr.edu.yildiz.virtualcloset.AddEventActivity;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
+import tr.edu.yildiz.virtualcloset.Model.Clothes;
 import tr.edu.yildiz.virtualcloset.Model.Event;
+import tr.edu.yildiz.virtualcloset.Model.Outfit;
 import tr.edu.yildiz.virtualcloset.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
@@ -106,6 +108,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public void dataChanged() {
         events = databaseHelper.getEvents();
-        notifyDataSetChanged();
+        if(events != null)
+            notifyDataSetChanged();
     }
 }

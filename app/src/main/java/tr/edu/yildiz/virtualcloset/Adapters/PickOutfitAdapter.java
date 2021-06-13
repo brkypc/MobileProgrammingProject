@@ -41,25 +41,33 @@ public class PickOutfitAdapter extends RecyclerView.Adapter<PickOutfitAdapter.Vi
     public void onBindViewHolder(@NonNull PickOutfitAdapter.ViewHolder holder, int position) {
         if (outfits.get(position).getOverhead() != -1) {
             Clothes clothes1 = databaseHelper.getClothes(outfits.get(position).getOverhead());
-            byte[] image1 = clothes1.getPhoto();
-            Bitmap bitmap1 = BitmapFactory.decodeByteArray(image1, 0, image1.length);
-            holder.overHead.setImageBitmap(bitmap1);
+            if (clothes1 != null) {
+                byte[] image1 = clothes1.getPhoto();
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(image1, 0, image1.length);
+                holder.overHead.setImageBitmap(bitmap1);
+            }
         }
 
         Clothes clothes2 = databaseHelper.getClothes(outfits.get(position).getUpper());
+        if (clothes2 != null) {
+            byte[] image2 = clothes2.getPhoto();
+            Bitmap bitmap2 = BitmapFactory.decodeByteArray(image2, 0, image2.length);
+            holder.upper.setImageBitmap(bitmap2);
+        }
+
         Clothes clothes3 = databaseHelper.getClothes(outfits.get(position).getLower());
+        if (clothes3 != null) {
+            byte[] image3 = clothes3.getPhoto();
+            Bitmap bitmap3 = BitmapFactory.decodeByteArray(image3, 0, image3.length);
+            holder.lower.setImageBitmap(bitmap3);
+        }
+
         Clothes clothes4 = databaseHelper.getClothes(outfits.get(position).getFoot());
-
-        byte[] image2 = clothes2.getPhoto();
-        byte[] image3 = clothes3.getPhoto();
-        byte[] image4 = clothes4.getPhoto();
-        Bitmap bitmap2 = BitmapFactory.decodeByteArray(image2, 0, image2.length);
-        Bitmap bitmap3 = BitmapFactory.decodeByteArray(image3, 0, image3.length);
-        Bitmap bitmap4 = BitmapFactory.decodeByteArray(image4, 0, image4.length);
-
-        holder.upper.setImageBitmap(bitmap2);
-        holder.lower.setImageBitmap(bitmap3);
-        holder.foot.setImageBitmap(bitmap4);
+        if (clothes4 != null) {
+            byte[] image4 = clothes4.getPhoto();
+            Bitmap bitmap4 = BitmapFactory.decodeByteArray(image4, 0, image4.length);
+            holder.foot.setImageBitmap(bitmap4);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             AddEventActivity.outfitNo = outfits.get(position).getId();
@@ -72,7 +80,7 @@ public class PickOutfitAdapter extends RecyclerView.Adapter<PickOutfitAdapter.Vi
         return outfits.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView overHead, upper, lower, foot;
 
         public ViewHolder(@NonNull View itemView) {

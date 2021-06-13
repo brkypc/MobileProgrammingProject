@@ -5,10 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,25 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 
 import tr.edu.yildiz.virtualcloset.Adapters.PickOutfitAdapter;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
@@ -69,12 +54,11 @@ public class AddEventActivity extends AppCompatActivity {
         defineVariables();
 
         Intent intent = getIntent();
-        if(intent.hasExtra("update")) {
+        if (intent.hasExtra("update")) {
             eventId = intent.getIntExtra("eventId", -1);
             setFields();
             defineUpdateListener();
-        }
-        else {
+        } else {
             defineAddListener();
         }
 
@@ -98,8 +82,7 @@ public class AddEventActivity extends AppCompatActivity {
     private void defineUpdateListener() {
         addEvent.setText(R.string.update);
         addEvent.setOnClickListener(v -> {
-            if(validateFields()) {
-                //ekle
+            if (validateFields()) {
                 String name, type, date, location;
                 name = eventName.getText().toString();
                 type = eventType.getText().toString();
@@ -108,8 +91,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                 databaseHelper.updateEvent(new Event(outfitNo, name, type, date, location, latitude, longitude), eventId);
                 Toast.makeText(AddEventActivity.this, "Etkinlik güncellendi", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Toast.makeText(AddEventActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
             }
         });
@@ -117,8 +99,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     private void defineAddListener() {
         addEvent.setOnClickListener(v -> {
-            if(validateFields()) {
-                //ekle
+            if (validateFields()) {
                 String name, type, date, location;
                 name = eventName.getText().toString();
                 type = eventType.getText().toString();
@@ -127,23 +108,19 @@ public class AddEventActivity extends AppCompatActivity {
 
                 databaseHelper.addEvent(new Event(outfitNo, name, type, date, location, latitude, longitude));
                 Toast.makeText(AddEventActivity.this, "Etkinlik eklendi", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Toast.makeText(AddEventActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 567 && data != null) {
+        if (resultCode == RESULT_OK && requestCode == 567 && data != null) {
             eventLocation.setText(data.getStringExtra("address"));
             latitude = data.getDoubleExtra("lat", 0);
             longitude = data.getDoubleExtra("lon", 0);
-
-            Log.d("mytag","lat:" + data.getDoubleExtra("lat", 0));
-            Log.d("mytag","lon:" + data.getDoubleExtra("lon", 0));
         }
     }
 
@@ -164,7 +141,9 @@ public class AddEventActivity extends AppCompatActivity {
             String strDate = sdf.format(mCalendar.getTime());
             eventDate.setText(strDate);
 
-            this.year = year; this.month = month; this.dayOfMonth = dayOfMonth;
+            this.year = year;
+            this.month = month;
+            this.dayOfMonth = dayOfMonth;
         }, year, month, dayOfMonth);
         dpd.setCancelable(false);
         dpd.getDatePicker().setMinDate(calendar.getTimeInMillis());
@@ -185,14 +164,10 @@ public class AddEventActivity extends AppCompatActivity {
         mRv.setHasFixedSize(true);
         mRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider)));
-        mRv.addItemDecoration(decoration);
-
         PickOutfitAdapter outfitAdapter = new PickOutfitAdapter(this, outfits);
         mRv.setAdapter(outfitAdapter);
         dialog.setOnDismissListener(dialog -> {
-            if(outfitNo != 0) {
+            if (outfitNo != 0) {
                 String s = "Kombin " + outfitNo;
                 eventOutfit.setText(s);
             }
@@ -206,8 +181,7 @@ public class AddEventActivity extends AppCompatActivity {
         eventLocation.setOnClickListener(v -> {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(AddEventActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            }
-            else {
+            } else {
                 createLocationPicker();
             }
         });

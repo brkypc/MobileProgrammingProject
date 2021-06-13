@@ -3,19 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b7d8f9"
     android:orientation="vertical"
     tools:context=".OutfitsActivity">
 
     <TextView
         android:id="@+id/noOutfit"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/muli"
         android:text="@string/no_outfit"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:visibility="gone" />
 

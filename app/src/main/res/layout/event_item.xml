@@ -4,23 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:backgroundTint="#b7d8f9"
     app:cardCornerRadius="2dp"
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#b7d8f9">
+        android:layout_height="wrap_content">
 
         <ImageButton
             android:id="@+id/deleteEvent"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="#b7d8f9"
             android:layout_marginTop="2dp"
-            android:scaleType="fitXY"
+            android:background="@color/white"
             android:contentDescription="@string/clothes"
+            android:scaleType="fitXY"
             android:src="@drawable/delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,19 +28,19 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="5dp"
-            android:background="#b7d8f9"
+            android:background="@color/white"
             android:contentDescription="@string/clothes"
             android:scaleType="fitXY"
             android:src="@drawable/ic_edit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deleteEvent"
+            app:layout_constraintTop_toBottomOf="@id/deleteEvent"
             app:tint="@color/black" />
 
         <TextView
             android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,45 +51,47 @@
             android:id="@+id/itemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemName"/>
+            app:layout_constraintTop_toBottomOf="@+id/itemName" />
 
         <TextView
             android:id="@+id/itemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemType"/>
+            app:layout_constraintTop_toBottomOf="@+id/itemType" />
 
         <TextView
             android:id="@+id/itemOutfit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDate"/>
+            app:layout_constraintTop_toBottomOf="@+id/itemDate" />
 
         <TextView
             android:id="@+id/itemLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:drawableStartCompat="@drawable/ic_location"
+            app:drawableTint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemOutfit"/>
+            app:layout_constraintTop_toBottomOf="@+id/itemOutfit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

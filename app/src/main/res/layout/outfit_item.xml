@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#b7d8f9"
+    android:layout_margin="10dp"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -12,29 +12,27 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:background="#b7d8f9"
+        android:background="@color/white"
         android:contentDescription="@string/outfits"
         android:scaleType="fitXY"
         android:src="@drawable/delete"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/shareOutfit"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/shareOutfit"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:background="#b7d8f9"
+        android:background="@color/white"
         android:contentDescription="@string/outfits"
         android:scaleType="fitXY"
         android:src="@drawable/ic_share"
         android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/deleteOutfit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/deleteOutfit"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/black" />
 
@@ -43,11 +41,12 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/outfits"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shareOutfit"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shareOutfit" />
 
     <ImageView
         android:id="@+id/face"
@@ -56,9 +55,9 @@
         android:layout_gravity="center"
         android:contentDescription="@string/outfits"
         android:src="@drawable/face"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/overHead"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overHead" />
 
     <ImageView
         android:id="@+id/upper"
@@ -66,9 +65,9 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:contentDescription="@string/outfits"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/face"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/face" />
 
     <ImageView
         android:id="@+id/lower"
@@ -76,9 +75,9 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:contentDescription="@string/outfits"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upper"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upper" />
 
     <ImageView
         android:id="@+id/foot"
@@ -86,8 +85,8 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:contentDescription="@string/outfits"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lower"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lower" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

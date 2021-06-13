@@ -74,6 +74,7 @@ public class ChangingRoomAdapter extends RecyclerView.Adapter<ChangingRoomAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             photo = itemView.findViewById(R.id.rvImage);
         }
     }

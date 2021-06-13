@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#88bef5"
     android:orientation="vertical"
     tools:context=".EventsActivity">
 
@@ -33,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:background="#88bef5"
+            android:background="@color/white"
             android:contentDescription="@string/drawers"
             android:src="@drawable/add"
             app:layout_constraintEnd_toEndOf="parent"

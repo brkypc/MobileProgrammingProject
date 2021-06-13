@@ -34,6 +34,7 @@
     <string name="add_clothes">Kıyafet Ekle</string>
     <string name="my_name">Berkay Yapıcı - 17011003</string>
     <string name="outfit_room">K\na\nb\ni\nn\n \nO\nd\na\ns\nı</string>
+    <string name="add_event">Etkinlik Ekle</string>
     <string-array name="type">
         <item>Kıyafet türü seçiniz</item>
         <item>Şapka</item>

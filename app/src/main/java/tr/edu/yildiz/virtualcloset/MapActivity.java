@@ -9,7 +9,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,7 +26,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
@@ -62,7 +60,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 lng, 10);
         mMap.animateCamera(starting);
 
-        mMap.setOnMapLongClickListener(latLng -> {
+        mMap.setOnMapClickListener(latLng -> {
             mLatLng = latLng;
             mMap.clear();
 
@@ -79,7 +77,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         });
 
         mMap.setOnMarkerClickListener(marker -> {
-            Log.d("mytag", "marker click");
             confirmAddress(mLatLng);
             return false;
         });
@@ -100,13 +97,11 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Log.d("mytag", "onMyLocationButtonClick");
         return true;
     }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Log.d("mytag", "Current location:\n" + location);
     }
 
     private void confirmAddress(LatLng latLng) {
@@ -134,7 +129,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             data.putExtra("address", address);
             setResult(RESULT_OK, data);
             finish();
-            Log.d("mytag", "accepted");
         });
 
         dialog.show();
