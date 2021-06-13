@@ -3,19 +3,15 @@ package tr.edu.yildiz.virtualcloset;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import tr.edu.yildiz.virtualcloset.Adapters.ClothesAdapter;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
@@ -28,6 +24,7 @@ public class ClothesActivity extends AppCompatActivity {
     RecyclerView rvClothes;
     ClothesAdapter clothesAdapter;
     TextView noClothes;
+    SwipeRefreshLayout refreshLayout;
 
     int drawerNo;
 
@@ -50,23 +47,27 @@ public class ClothesActivity extends AppCompatActivity {
             noClothes = findViewById(R.id.noClothes);
             noClothes.setVisibility(View.VISIBLE);
         }
+
+        swipeToRefresh();
+    }
+
+    private void swipeToRefresh() {
+        refreshLayout = findViewById(R.id.refreshClothes);
+        refreshLayout.setOnRefreshListener(() -> {
+            if (clothesAdapter != null) {
+                clothesAdapter.dataChanged(drawerNo);
+            }
+            refreshLayout.setRefreshing(false);
+        });
     }
 
     private void defineRv() {
         rvClothes = findViewById(R.id.rvClothes);
         rvClothes.setHasFixedSize(true);
-
         rvClothes.setLayoutManager(new LinearLayoutManager(this));
-
-        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider)));
-        rvClothes.addItemDecoration(decoration);
 
         clothesAdapter = new ClothesAdapter(this, clothes);
         rvClothes.setAdapter(clothesAdapter);
-
-        /*Animation recycler_animation = AnimationUtils.loadAnimation(this, R.anim.recycler_animation);
-        rvClothes.startAnimation(recycler_animation);*/
     }
 
     private void defineAddClothes(int size) {

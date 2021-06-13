@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,10 +155,14 @@ public class ChangingRoomActivity extends AppCompatActivity {
                     break;
                 case "T-Shirt":
                 case "Gömlek":
+                case "Kazak":
+                case "Sweatshirt":
                 case "Mont":
                     upper.add(aClothes);
                     break;
                 case "Pantolon":
+                case "Şort":
+                case "Eşofman":
                     lower.add(aClothes);
                     break;
                 case "Ayakkabı":

@@ -5,14 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#88bef5"
-    android:padding="20dp"
     tools:context=".AddClothesActivity">
+
+    <TextView
+        android:id="@+id/addClothesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/muli_black"
+        android:text="@string/add_clothes"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/photo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/img_bg"
         android:contentDescription="@string/app_text"
         android:padding="5dp"
@@ -20,13 +33,13 @@
         android:src="@drawable/default_clothes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/addClothesText" />
 
     <Spinner
         android:id="@+id/type"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_bg"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +50,7 @@
         android:id="@+id/pattern"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_bg"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +76,7 @@
         android:id="@+id/date"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_bg"
         android:gravity="start"
         android:padding="20dp"
@@ -78,7 +91,7 @@
         android:id="@+id/price"
         android:layout_width="250dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_bg"
         android:gravity="start"
         android:hint="@string/enter_price"
@@ -97,7 +110,7 @@
         style="@style/TextAppearance.AppCompat.Button"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/button_bg"
         android:text="@string/add"
         android:textColor="@color/white"

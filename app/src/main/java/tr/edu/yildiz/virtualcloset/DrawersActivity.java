@@ -3,8 +3,6 @@ package tr.edu.yildiz.virtualcloset;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -12,13 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import tr.edu.yildiz.virtualcloset.Adapters.DrawerAdapter;
 import tr.edu.yildiz.virtualcloset.Database.DatabaseHelper;
@@ -31,6 +27,8 @@ public class DrawersActivity extends AppCompatActivity {
     RecyclerView rvDrawers;
     DrawerAdapter drawerAdapter;
     TextView noDrawer;
+
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +49,24 @@ public class DrawersActivity extends AppCompatActivity {
             noDrawer = findViewById(R.id.noDrawer);
             noDrawer.setVisibility(View.VISIBLE);
         }
+
+        swipeToRefresh();
+    }
+
+    private void swipeToRefresh() {
+        refreshLayout = findViewById(R.id.refreshDrawer);
+        refreshLayout.setOnRefreshListener(() -> {
+            if(drawerAdapter != null) {
+                drawerAdapter.dataChanged();
+            }
+            refreshLayout.setRefreshing(false);
+        });
     }
 
     private void defineRv() {
         rvDrawers = findViewById(R.id.rvDrawers);
         rvDrawers.setHasFixedSize(true);
-
         rvDrawers.setLayoutManager(new LinearLayoutManager(this));
-
-        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        decoration.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.divider)));
-        rvDrawers.addItemDecoration(decoration);
-
-        /*Animation recycler_animation = AnimationUtils.loadAnimation(this, R.anim.recycler_animation);
-        rvDrawers.startAnimation(recycler_animation);*/
     }
 
     private void defineAddDrawer() {
@@ -96,9 +98,11 @@ public class DrawersActivity extends AppCompatActivity {
             if(!dialogName.getText().toString().isEmpty()) {
                 long result = databaseHelper.addDrawer(dialogName.getText().toString());
                 if(result != -1) {
-                    dialog.dismiss();
-                    noDrawer.setVisibility(View.GONE);
                     Toast.makeText(this, "Çekmece eklendi", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+
+                    if(noDrawer != null) noDrawer.setVisibility(View.GONE);
+
                     drawers = databaseHelper.getDrawers();
                     drawerAdapter = new DrawerAdapter(this, drawers);
                     rvDrawers.setAdapter(drawerAdapter);

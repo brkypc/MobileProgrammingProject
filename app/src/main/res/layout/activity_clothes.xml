@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#88bef5"
     tools:context=".ClothesActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:background="#88bef5"
+            android:background="@color/white"
             android:contentDescription="@string/clothes"
             android:src="@drawable/add"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,10 +54,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvClothes"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshClothes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvClothes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

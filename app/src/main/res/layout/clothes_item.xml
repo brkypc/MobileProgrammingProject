@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:backgroundTint="#b7d8f9"
     app:cardCornerRadius="2dp"
     app:cardElevation="8dp">
 
@@ -17,7 +16,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="3dp"
-            android:background="#b7d8f9"
+            android:background="@color/white"
             android:contentDescription="@string/clothes"
             android:scaleType="fitXY"
             android:src="@drawable/delete"
@@ -28,13 +27,13 @@
             android:id="@+id/editClothes"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:background="#b7d8f9"
+            android:layout_marginBottom="3dp"
+            android:background="@color/white"
             android:contentDescription="@string/clothes"
             android:scaleType="fitXY"
             android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deleteClothes"
             app:tint="@color/black" />
 
         <ImageView
@@ -63,7 +62,7 @@
 
         <TextView
             android:id="@+id/rvColor"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/muli"

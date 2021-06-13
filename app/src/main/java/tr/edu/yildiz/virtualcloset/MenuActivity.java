@@ -26,8 +26,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        receiver = new PowerConnectionReceiver();
 
+        receiver = new PowerConnectionReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
@@ -37,6 +37,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
+
         unregisterReceiver(receiver);
     }
 

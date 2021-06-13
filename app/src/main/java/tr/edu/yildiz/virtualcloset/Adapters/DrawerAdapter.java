@@ -22,7 +22,7 @@ import tr.edu.yildiz.virtualcloset.R;
 
 public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder> {
     private final Context context;
-    private final ArrayList<Drawer> drawers;
+    private ArrayList<Drawer> drawers;
     private final LayoutInflater mInflater;
     private final DatabaseHelper databaseHelper;
 
@@ -80,5 +80,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.ViewHolder
             drawerCount = itemView.findViewById(R.id.drawerCount);
             deleteDrawer = itemView.findViewById(R.id.deleteDrawer);
         }
+    }
+
+    public void dataChanged() {
+        drawers = databaseHelper.getDrawers();
+        if(drawers != null)
+            notifyDataSetChanged();
     }
 }

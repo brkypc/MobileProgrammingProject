@@ -12,14 +12,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/muli"
         android:text="@string/no_type"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/typeCounts"
@@ -32,8 +34,24 @@
         android:textColor="@color/black"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
         app:layout_constraintTop_toBottomOf="@+id/noType" />
+
+    <TextView
+        android:id="@+id/outfitRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/muli_black"
+        android:includeFontPadding="false"
+        android:text="@string/outfit_room"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgOverHead"
@@ -46,7 +64,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/default_clothes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -57,7 +75,7 @@
         android:contentDescription="@string/outfits"
         android:src="@drawable/face"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
         app:layout_constraintTop_toBottomOf="@+id/imgOverHead" />
 
     <ImageView
@@ -68,7 +86,7 @@
         android:contentDescription="@string/outfits"
         android:src="@drawable/default_clothes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
         app:layout_constraintTop_toBottomOf="@+id/imgFace" />
 
     <ImageView
@@ -79,7 +97,7 @@
         android:contentDescription="@string/outfits"
         android:src="@drawable/default_clothes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
         app:layout_constraintTop_toBottomOf="@+id/imgUpper" />
 
     <ImageView
@@ -89,8 +107,8 @@
         android:layout_gravity="center"
         android:contentDescription="@string/outfits"
         android:src="@drawable/default_clothes"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
         app:layout_constraintTop_toBottomOf="@+id/imgLower" />
 
     <Button
@@ -102,8 +120,8 @@
         android:background="@drawable/button_bg"
         android:text="@string/create_outfit"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgFoot"/>
+        app:layout_constraintStart_toEndOf="@+id/outfitRoom"
+        app:layout_constraintTop_toBottomOf="@+id/imgFoot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@ import tr.edu.yildiz.virtualcloset.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     private final Context context;
-    private final ArrayList<Event> events;
+    private ArrayList<Event> events;
     private final LayoutInflater mInflater;
     private final DatabaseHelper databaseHelper;
 
@@ -102,5 +102,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             deleteEvent = itemView.findViewById(R.id.deleteEvent);
             editEvent = itemView.findViewById(R.id.editEvent);
         }
+    }
+
+    public void dataChanged() {
+        events = databaseHelper.getEvents();
+        notifyDataSetChanged();
     }
 }

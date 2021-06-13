@@ -9,29 +9,29 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/middleName"
+        android:id="@+id/middleName1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
         android:fontFamily="@font/baloo"
-        android:text="@string/my_name"
-        android:textColor="#FFF"
+        android:text="@string/sanal"
+        android:textColor="@color/white"
         android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/middleNumber"
+        android:id="@+id/middleName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/baloo"
-        android:text="@string/school_number"
-        android:textColor="#FFF"
+        android:text="@string/dolabim"
+        android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/middleName" />
+        app:layout_constraintTop_toBottomOf="@+id/middleName1" />
 
     <TextView
         android:id="@+id/bottomText"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
         android:fontFamily="cursive"
-        android:text="@string/mobile_programming_course_app"
+        android:text="@string/my_name"
         android:textColor="#8A8585"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

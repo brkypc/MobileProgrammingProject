@@ -26,7 +26,7 @@ import tr.edu.yildiz.virtualcloset.R;
 
 public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHolder> {
     private final Context context;
-    private final ArrayList<Clothes> clothes;
+    private ArrayList<Clothes> clothes;
     private final LayoutInflater mInflater;
     private final DatabaseHelper databaseHelper;
 
@@ -85,7 +85,7 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
         return clothes.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView type, color, pattern, date, price;
         ImageView photo;
         ImageButton deleteClothes, editClothes;
@@ -101,5 +101,16 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
             deleteClothes = itemView.findViewById(R.id.deleteClothes);
             editClothes = itemView.findViewById(R.id.editClothes);
         }
+    }
+
+    public void add(Clothes aClothes) {
+        clothes.add(aClothes);
+        notifyDataSetChanged();
+    }
+
+    public void dataChanged(int drawerNo) {
+        clothes = databaseHelper.getDrawerClothes(drawerNo);
+        if (clothes != null)
+            notifyDataSetChanged();
     }
 }

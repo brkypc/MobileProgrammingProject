@@ -71,12 +71,12 @@ public class AddClothesActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         drawerNo = intent.getIntExtra("drawerNo", -1);
-        if(intent.hasExtra("update")) {
+
+        if (intent.hasExtra("update")) {
             clothesId = intent.getIntExtra("clothesId", -1);
             setFields();
             defineUpdateListener();
-        }
-        else {
+        } else {
             count = intent.getIntExtra("count", 0);
             defineAddListener();
         }
@@ -105,20 +105,20 @@ public class AddClothesActivity extends AppCompatActivity {
         addClothes.setOnClickListener(v -> {
             addClothes.startAnimation(scaleUp);
             addClothes.startAnimation(scaleDown);
-            if(validateFields()) {
+            if (validateFields()) {
                 byte[] image = getByteArray();
-                if(image != null) {
+                if (image != null) {
                     String sType, sPattern, sDate, sPrice;
                     sType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
                     sPattern = pattern.getItemAtPosition(pattern.getSelectedItemPosition()).toString();
                     sDate = date.getText().toString();
                     sPrice = price.getText().toString();
                     databaseHelper.addClothes(new Clothes(drawerNo, sType, finalColor, sPattern, sDate, sPrice, image));
-                    databaseHelper.updateDrawer(drawerNo, count+1);
+                    databaseHelper.updateDrawer(drawerNo, count + 1);
                     Toast.makeText(AddClothesActivity.this, "Kıyafet eklendi", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(AddClothesActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,12 +129,12 @@ public class AddClothesActivity extends AppCompatActivity {
         addClothes.setOnClickListener(v -> {
             addClothes.startAnimation(scaleUp);
             addClothes.startAnimation(scaleDown);
-            if(validateUpdateFields()) {
-                if(imgUri != null) {
+            if (validateUpdateFields()) {
+                if (imgUri != null) {
                     image = getByteArray();
                 }
 
-                if(image != null) {
+                if (image != null) {
                     String sType, sPattern, sDate, sPrice;
                     sType = type.getItemAtPosition(type.getSelectedItemPosition()).toString();
                     sPattern = pattern.getItemAtPosition(pattern.getSelectedItemPosition()).toString();
@@ -142,9 +142,9 @@ public class AddClothesActivity extends AppCompatActivity {
                     sPrice = price.getText().toString();
                     databaseHelper.updateClothes(new Clothes(drawerNo, sType, finalColor, sPattern, sDate, sPrice, image), clothesId);
                     Toast.makeText(AddClothesActivity.this, "Kıyafet güncellendi", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(AddClothesActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
             }
         });
@@ -152,10 +152,12 @@ public class AddClothesActivity extends AppCompatActivity {
 
     private void defineListeners() {
         photo.setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(AddClothesActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(AddClothesActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+            if (ContextCompat.checkSelfPermission(AddClothesActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(AddClothesActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(AddClothesActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_CODE);
+            } else {
+                pickImageFromGallery();
             }
-            else { pickImageFromGallery(); }
         });
         color.setOnClickListener(v -> createColorPicker());
         date.setOnClickListener(v -> createDatePicker());
@@ -179,8 +181,10 @@ public class AddClothesActivity extends AppCompatActivity {
 
             return outputStream.toByteArray();
 
+        } catch (Exception e) {
+            Log.d("virtualCloset", e.getMessage());
+            return null;
         }
-        catch (Exception e) { Log.d("virtualCloset", e.getMessage()); return null; }
     }
 
     @SuppressWarnings("deprecation")
@@ -211,13 +215,15 @@ public class AddClothesActivity extends AppCompatActivity {
 
     private boolean validateFields() {
         if (imgUri == null || finalColor == null) return false;
-        else if(type.getSelectedItemPosition()==0 || pattern.getSelectedItemPosition()==0) return false;
+        else if (type.getSelectedItemPosition() == 0 || pattern.getSelectedItemPosition() == 0)
+            return false;
         else if (date.getText().toString().startsWith("A")) return false;
         else return !price.getText().toString().isEmpty();
     }
 
     private boolean validateUpdateFields() {
-        if(type.getSelectedItemPosition()==0 || pattern.getSelectedItemPosition()==0) return false;
+        if (type.getSelectedItemPosition() == 0 || pattern.getSelectedItemPosition() == 0)
+            return false;
         else return !price.getText().toString().isEmpty();
     }
 
@@ -228,7 +234,9 @@ public class AddClothesActivity extends AppCompatActivity {
             String strDate = sdf.format(mCalendar.getTime());
             date.setText(strDate);
 
-            this.year = year; this.month = month; this.dayOfMonth = dayOfMonth;
+            this.year = year;
+            this.month = month;
+            this.dayOfMonth = dayOfMonth;
         }, year, month, dayOfMonth);
         dpd.setCancelable(false);
         dpd.getDatePicker().setMaxDate(calendar.getTimeInMillis());
@@ -242,18 +250,17 @@ public class AddClothesActivity extends AppCompatActivity {
                 .setTitle("Renk Seçiniz")
                 .initialColor(Color.WHITE)
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)
-                .density(12)
-                .setOnColorSelectedListener(selectedColor -> hexColor =  "#" + Integer.toHexString(selectedColor).substring(2))
+                .density(6)
+                .setOnColorSelectedListener(selectedColor -> hexColor = "#" + Integer.toHexString(selectedColor).substring(2))
                 .setPositiveButton("Seç", (dialog, selectedColor, allColors) -> {
-                   if(hexColor!=null) {
-                       finalColor = hexColor;
-                       color.setText("Kıyafet Rengi");
-                       color.setBackgroundColor(Color.parseColor(finalColor));
-                       Toast.makeText(AddClothesActivity.this, "Renk seçildi", Toast.LENGTH_SHORT).show();
-                   }
-                   else {
-                       Toast.makeText(AddClothesActivity.this, "Renk seçmediniz", Toast.LENGTH_SHORT).show();
-                   }
+                    if (hexColor != null) {
+                        finalColor = hexColor;
+                        color.setText("Kıyafet Rengi");
+                        color.setBackgroundColor(Color.parseColor(finalColor));
+                        Toast.makeText(AddClothesActivity.this, "Renk seçildi", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddClothesActivity.this, "Renk seçmediniz", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .setNegativeButton("İptal", null)
                 .build()
