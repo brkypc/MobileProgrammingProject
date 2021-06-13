@@ -91,6 +91,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                 databaseHelper.updateEvent(new Event(outfitNo, name, type, date, location, latitude, longitude), eventId);
                 Toast.makeText(AddEventActivity.this, "Etkinlik güncellendi", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 Toast.makeText(AddEventActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
             }
@@ -108,6 +109,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                 databaseHelper.addEvent(new Event(outfitNo, name, type, date, location, latitude, longitude));
                 Toast.makeText(AddEventActivity.this, "Etkinlik eklendi", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 Toast.makeText(AddEventActivity.this, "Alanlar boş bırakılamaz", Toast.LENGTH_SHORT).show();
             }
